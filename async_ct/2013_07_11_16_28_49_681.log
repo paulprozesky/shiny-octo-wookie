@@ -1,0 +1,13 @@
+*******************************************************************************
+data_vector_length(32) output_vector_length(4) random_dv(0) swapped(0) col_order(0) interleave(0) map([])
+	Sync is at 29. Simulating for 1140 cycles. Output sync at 237, ran for 679 cycles.
+	PASS
+*******************************************************************************
+*******************************************************************************
+data_vector_length(32) output_vector_length(4) random_dv(0) swapped(1) col_order(0) interleave(0) map([])
+	Sync is at 4. Simulating for 1040 cycles. Output sync at 212, ran for 579 cycles.
+	PASS
+*******************************************************************************
+*******************************************************************************
+data_vector_length(32) output_vector_length(4) random_dv(0) swapped(0) col_order(1) interleave(4) map([])
+	Sync is at 3. Simulating for 1036 cycles.
