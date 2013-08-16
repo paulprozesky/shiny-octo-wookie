@@ -37,34 +37,34 @@ classdef Register
                 obj.block = blockname;
                 obj.owner = regexprep(obj.block, '/[^/]+$', '');
                 if ~old_block,
-                    obj = obj.load_from_sw_reg(blockname);
+                    obj = obj.load_from_sw_reg();
                 else
-                    obj = obj.load_from_sw_reg_old(blockname);
+                    obj = obj.load_from_sw_reg_old();
                 end
             else
                 error('Only defined for xps:sw_reg.');
             end
         end
         
-        function obj = load_from_sw_reg_old(obj, blockname)
+        function obj = load_from_sw_reg_old(obj)
             io_dir = get_param(obj.block, 'io_dir');
             regname = strrep(regexprep(obj.block, '^[^/]*/', ''), '/', '_');
-            obj.datawords = MemoryWord(regname, -1, 0, 32, 1, 0, 'Unsigned', 0, io_dir);
+            obj.datawords = design_info.MemoryWord(regname, -1, 0, 32, 1, 0, 'Unsigned', 0, io_dir);
         end
         
-        function obj = load_from_sw_reg(obj, blockname)
+        function obj = load_from_sw_reg(obj)
             regname = strrep(regexprep(obj.block, '^[^/]*/', ''), '/', '_');
-            numios = str2double(get_param(blockname,'numios'));
+            numios = str2double(get_param(obj.block,'numios'));
             io_dir = get_param(obj.block, 'io_dir');
             offset = 0;
-            %mem = MemoryWord(strcat(regname, '_raw'), -1, offset, 32, 1, 0, 'Unsigned', 0, io_dir);
+            %mem = design_info.MemoryWord(strcat(regname, '_raw'), -1, offset, 32, 1, 0, 'Unsigned', 0, io_dir);
             %obj = obj.add_memory(mem);
             for f = numios : -1 : 1,
-                ioname = get_param(blockname, sprintf('name%i', f));
-                iobitwidth = str2double(get_param(blockname, sprintf('bitwidth%i', f)));
-                ioarith_type = get_param(blockname, sprintf('arith_type%i', f));
-                iobin_pt = str2double(get_param(blockname, sprintf('bin_pt%i', f)));
-                mem = MemoryWord(regexprep(obj.block, '^[^/]*/', ''),strcat(regname, '_', ioname), -1, offset, iobitwidth, 1, 0, ioarith_type, iobin_pt, io_dir);
+                ioname = get_param(obj.block, sprintf('name%i', f));
+                iobitwidth = str2double(get_param(obj.block, sprintf('bitwidth%i', f)));
+                ioarith_type = get_param(obj.block, sprintf('arith_type%i', f));
+                iobin_pt = str2double(get_param(obj.block, sprintf('bin_pt%i', f)));
+                mem = design_info.MemoryWord(regexprep(obj.block, '^[^/]*/', ''),strcat(regname, '_', ioname), -1, offset, iobitwidth, 1, 0, ioarith_type, iobin_pt, io_dir);
                 obj = obj.add_memory(mem);
                 offset = offset + iobitwidth;
             end

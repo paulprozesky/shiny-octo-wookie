@@ -54,10 +54,10 @@ classdef Snapshot
             mem_type = 'Unsigned';
             mem_bp = 0;
             mem_direction = 'To Processor';
-            obj.datawords = MemoryWord(snapname, mem_name, mem_address, mem_offset, mem_width, mem_length, mem_stride, mem_type, mem_bp, mem_direction);
+            obj.datawords = design_info.MemoryWord(snapname, mem_name, mem_address, mem_offset, mem_width, mem_length, mem_stride, mem_type, mem_bp, mem_direction);
             % extra value register
             if strcmp(obj.extra_value, 'on'),
-                obj.extra_value_reg = Register(strcat(obj.block, '/val'));
+                obj.extra_value_reg = design_info.Register(strcat(obj.block, '/val'));
             else
                 obj.extra_value_reg = NaN;
             end
@@ -94,7 +94,7 @@ classdef Snapshot
 %                 field_widths =  fliplr(eval(char(get_param(blk, 'extra_widths'))));
 %                 field_bps =     fliplr(eval(char(get_param(blk, 'extra_bps'))));
 %                 field_types =   fliplr(eval(char(get_param(blk, 'extra_types'))));
-%                 obj.extra_value_reg = Register(strcat(obj.path, '/val'));
+%                 obj.extra_value_reg = design_info.Register(strcat(obj.path, '/val'));
 %                 offset = 0;
 %                 for f = 1 : numel(field_names),
 %                     field = Field(strcat(obj.extra_value_reg.name, '_', field_names(f)), field_widths(f), 0, offset, field_bps(f), field_types(f));
@@ -111,20 +111,21 @@ classdef Snapshot
                 dword = obj.datawords(d);
                 snapnodes(d) = dword.to_xml_node(xml_dom);
             end
-            % info - will be in info blocks ideally
-            snapname = regexprep(obj.block, '^[^/]*/', '');
-            snaptag = get_param(obj.block, 'Tag');
-            infos(1) = InfoBlock([snapname, '/block'], obj.block, snapname, snaptag);
-            infos(2) = InfoBlock([snapname, '/storage'], obj.storage, snapname, snaptag);
-            infos(3) = InfoBlock([snapname, '/dram_dimm'], obj.dram_dimm, snapname, snaptag);
-            infos(4) = InfoBlock([snapname, '/dram_clock'], obj.dram_clock, snapname, snaptag);
-            infos(5) = InfoBlock([snapname, '/start_offset'], obj.start_offset, snapname, snaptag);
-            infos(6) = InfoBlock([snapname, '/circular_capture'], obj.circular_capture, snapname, snaptag);
-            infos(7) = InfoBlock([snapname, '/extra_value'], obj.extra_value, snapname, snaptag);
-            infos(8) = InfoBlock([snapname, '/use_dsp48'], obj.use_dsp48, snapname, snaptag);
-            for n = numel(infos) : -1 : 1,
-                infonodes(n) = infos(n).to_xml_node(xml_dom);
-            end
+%             % info - will be in info blocks ideally
+%             snapname = regexprep(obj.block, '^[^/]*/', '');
+%             snaptag = get_param(obj.block, 'Tag');
+%             infos(1) = design_info.InfoBlock([snapname, '/block'], obj.block, snapname, snaptag);
+%             infos(2) = design_info.InfoBlock([snapname, '/storage'], obj.storage, snapname, snaptag);
+%             infos(3) = design_info.InfoBlock([snapname, '/dram_dimm'], obj.dram_dimm, snapname, snaptag);
+%             infos(4) = design_info.InfoBlock([snapname, '/dram_clock'], obj.dram_clock, snapname, snaptag);
+%             infos(5) = design_info.InfoBlock([snapname, '/start_offset'], obj.start_offset, snapname, snaptag);
+%             infos(6) = design_info.InfoBlock([snapname, '/circular_capture'], obj.circular_capture, snapname, snaptag);
+%             infos(7) = design_info.InfoBlock([snapname, '/extra_value'], obj.extra_value, snapname, snaptag);
+%             infos(8) = design_info.InfoBlock([snapname, '/use_dsp48'], obj.use_dsp48, snapname, snaptag);
+%             for n = numel(infos) : -1 : 1,
+%                 infonodes(n) = infos(n).to_xml_node(xml_dom);
+%             end
+            infonodes = NaN;
             % extra value
             if strcmp(obj.extra_value, 'on'),
                 extravalue = obj.extra_value_reg.to_xml_nodes(xml_dom);
