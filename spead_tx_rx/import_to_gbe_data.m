@@ -1,0 +1,10 @@
+veclen = 8192;
+gbe_valid = zeros(veclen,2);
+gbe_valid(1:veclen) = 1:veclen;
+gbe_valid(veclen+1:end) = tx_valid(1:veclen);
+gbe_eof = zeros(veclen,2);
+gbe_eof(1:veclen) = 1:veclen;
+gbe_eof(veclen+1:end) = tx_eof(1:veclen);
+gbe_data = zeros(veclen,2);
+gbe_data(1:veclen) = 1:veclen;
+gbe_data(veclen+1:end) = tx_data(1:veclen);

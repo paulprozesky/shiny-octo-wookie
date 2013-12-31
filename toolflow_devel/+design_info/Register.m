@@ -49,13 +49,15 @@ classdef Register
         function obj = load_from_sw_reg_old(obj)
             io_dir = get_param(obj.block, 'io_dir');
             regname = strrep(regexprep(obj.block, '^[^/]*/', ''), '/', '_');
-            obj.datawords = design_info.MemoryWord(regname, -1, 0, 32, 1, 0, 'Unsigned', 0, io_dir);
+            block_sans_system = regexprep(obj.block, '^[^/]*/', '');
+            obj.datawords = design_info.MemoryWord(block_sans_system, regname, -1, 0, 32, 1, 0, 'Unsigned', 0, io_dir);
         end
         
         function obj = load_from_sw_reg(obj)
-            regname = strrep(regexprep(obj.block, '^[^/]*/', ''), '/', '_');
-            numios = str2double(get_param(obj.block,'numios'));
             io_dir = get_param(obj.block, 'io_dir');
+            regname = strrep(regexprep(obj.block, '^[^/]*/', ''), '/', '_');
+            block_sans_system = regexprep(obj.block, '^[^/]*/', '');
+            numios = str2double(get_param(obj.block,'numios'));
             offset = 0;
             %mem = design_info.MemoryWord(strcat(regname, '_raw'), -1, offset, 32, 1, 0, 'Unsigned', 0, io_dir);
             %obj = obj.add_memory(mem);
@@ -64,7 +66,7 @@ classdef Register
                 iobitwidth = str2double(get_param(obj.block, sprintf('bitwidth%i', f)));
                 ioarith_type = get_param(obj.block, sprintf('arith_type%i', f));
                 iobin_pt = str2double(get_param(obj.block, sprintf('bin_pt%i', f)));
-                mem = design_info.MemoryWord(regexprep(obj.block, '^[^/]*/', ''),strcat(regname, '_', ioname), -1, offset, iobitwidth, 1, 0, ioarith_type, iobin_pt, io_dir);
+                mem = design_info.MemoryWord(block_sans_system, strcat(regname, '_', ioname), -1, offset, iobitwidth, 1, 0, ioarith_type, iobin_pt, io_dir);
                 obj = obj.add_memory(mem);
                 offset = offset + iobitwidth;
             end
