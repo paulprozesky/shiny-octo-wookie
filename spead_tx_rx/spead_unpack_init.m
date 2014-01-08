@@ -17,11 +17,14 @@ if length(current_consts) == num_headers,
         return
     end
 end
+
 if num_headers < 1,
     error('Must have at least one header!');
 end
 set_param([block, '/num_item_pts'], 'const', num2str(num_headers));
 set_param([block, '/num_headers'], 'const', num2str(num_headers+1));
+set_param([block, '/num_headers'], 'n_bits', num2str(ceil(log2(num_headers+1))));
+set_param([block, '/hdr_ctr'], 'n_bits', num2str(ceil(log2(num_headers+1))));
 delay = 1;
 
 % remove existing header blocks and their lines
