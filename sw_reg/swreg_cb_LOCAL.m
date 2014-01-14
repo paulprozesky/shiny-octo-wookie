@@ -1,4 +1,4 @@
-function swreg_cb(~, ~, blk)
+function swreg_cb_LOCAL(~, ~, blk)
 %
 % Init script for reg2 - software register for which arbitrary fields can be defined.
 %

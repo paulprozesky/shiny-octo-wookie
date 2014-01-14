@@ -1,4 +1,4 @@
-function swreg_init(blk)
+function swreg_init_LOCAL(blk)
 
 numios = str2double(get_param(blk, 'numios'));
 io_dir = get_param(blk, 'io_dir');
