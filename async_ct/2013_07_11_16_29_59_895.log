@@ -1,5 +1,0 @@
-*******************************************************************************
-data_vector_length(16) output_vector_length(4) random_dv(0) swapped(0) col_order(0) interleave(0) map([])
-	Sync is at 27. Simulating for 620 cycles. Output sync at 139, ran for 447 cycles.
-	PASS
-*******************************************************************************
