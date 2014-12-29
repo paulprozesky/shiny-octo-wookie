@@ -1,0 +1,21 @@
+--------------------------------- Version Log ----------------------------------
+Version                                 Path
+System Generator                        /home/paulp/opt/astro/14.7/ISE_DS/ISE/sysgen
+Matlab 8.0.0.783 (R2012b)               /home/paulp/opt/astro/MATLAB_R2012b
+ISE                                     /home/paulp/opt/astro/14.7/ISE_DS/ISE
+--------------------------------------------------------------------------------
+Summary of Errors:
+Error 0001: Bool type output port op gets indeterminate value.
+
+     Block: 'mkat_reord_xeng_sim_test_input/Relational'
+--------------------------------------------------------------------------------
+
+Error 0001:
+
+Reported by:
+  'mkat_reord_xeng_sim_test_input/Relational'
+
+Details:
+Bool type output port op gets indeterminate value.
+
+--------------------------------------------------------------------------------
