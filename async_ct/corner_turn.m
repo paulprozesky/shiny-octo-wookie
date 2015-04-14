@@ -5,8 +5,17 @@
 function ct = corner_turn(iv_length, ov_length, idata, swap_input, column_order, interleave_step, custom_map)
     ctlen = iv_length * ov_length;
     dlen = length(idata);
-    if mod(length(idata) , ctlen) > 0,
-        error('Length of input data (%i) must be a multiple of total corner turn length (len(iv=%i)*len(ov=%i)).\n', length(idata), iv_length, ov_length);
+    
+    % the input data must be long enough to at least do one corner turn -
+    % chop it off to the correct length after that
+    if dlen < ctlen,
+        error('input data is not long enough %i to perform the requested corner turn %i.', dlen, ctlen);
+    end
+    idata = idata(1:ctlen*floor(dlen/ctlen));
+    fprintf('input data was %i long, truncated to %i for corner turn.\n', dlen, length(idata));
+    dlen = length(idata);
+    if mod(dlen , ctlen) > 0,
+        error('Length of input data (%i) must be a multiple of total corner turn length (len(iv=%i)*len(ov=%i)).', dlen, iv_length, ov_length);
     end
     ct = zeros(1, dlen);
     for ivec_num = 1 : dlen / ctlen,
